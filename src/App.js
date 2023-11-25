@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function App() {
   return (
     <>
+      < Game />
       <Calculator />
     </>
   );
@@ -10,7 +11,7 @@ export default function App() {
 
 // CALCULATOR
 function Calculator() {
- return (<Panel />);
+  return (<Panel />);
 }
 
 function Panel({}) {
@@ -23,6 +24,64 @@ function Panel({}) {
     setInput('');
  }
   function Calculate() {
+    const operators = ['+', '-', 'x', '/'];
+    const vars = [];
+    const ops = [];
+    let num = "";
+    for (let i = 0; i < input.length; i++) {
+      console.log(input[i]);
+      let curr = input[i];
+      switch (curr) {
+        case('+'):
+          vars.push(num);
+          num = '';
+          ops.push(curr);
+          break;
+        case('-'):
+          vars.push(num);
+          num = '';
+          ops.push(curr);
+          break;
+        case('x'):
+          vars.push(num);
+          num = '';
+          ops.push(curr);
+          break;
+        case ('/'):
+          vars.push(num);
+          num = '';
+          ops.push(curr);
+          break;
+        default:
+          num += input[i];
+      }
+    }
+    vars.push(num);
+
+    console.log(vars);
+    console.log(ops);
+
+    let output = parseInt(vars[0], 10);
+    let k = 0;
+    for (let j = 1; j < vars.length; j++) {
+      num = parseInt(vars[j], 10);
+      switch (ops[k]) {
+        case('+'):
+          output += num;
+          break;
+        case('-'):
+          output -= num;
+          break;
+        case('x'):
+        output *= num;
+          break;
+        case ('/'):
+          output /= num;
+          break;
+      };
+      k++;
+    }
+
     return setInput(output);
   }
 
@@ -62,7 +121,7 @@ function Panel({}) {
 
 function Button({ value, onButtonClick, type}) {
   return (
-  <button className={type} onClick={onButtonClick}>
+  <button class={type} onClick={onButtonClick}>
     {value}
   </button>
  );
